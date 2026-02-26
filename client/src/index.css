@@ -8,22 +8,22 @@
   :root {
     /* Light Mode Theme */
     --background: 45 15% 92%; /* Warm grey-yellow #d4c4b0 */
-    --foreground: 123 50% 20%; /* #1a5c1a */
+    --foreground: 180 50% 20%; /* #0a5252 */
 
     --card: 45 10% 94%; /* Slightly warmer white #eeddcb */
-    --card-foreground: 123 50% 20%;
+    --card-foreground: 180 50% 20%;
 
     --popover: 45 10% 94%; /* Slightly warmer white #eeddcb */
-    --popover-foreground: 123 50% 20%;
+    --popover-foreground: 180 50% 20%;
 
-    --primary: 123 70% 30%; /* #1a7300 */
+    --primary: 180 70% 30%; /* #0d7373 */
     --primary-foreground: 0 0% 98%;
 
     --secondary: 45 20% 88%; /* Warmer secondary #c0baa8 */
-    --secondary-foreground: 123 50% 20%;
+    --secondary-foreground: 180 50% 20%;
 
-    --muted: 123 30% 85%;
-    --muted-foreground: 123 30% 50%;
+    --muted: 180 30% 85%;
+    --muted-foreground: 180 30% 50%;
 
     --accent: 38 90% 55%; /* #ffb000 */
     --accent-foreground: 0 0% 98%;
@@ -33,7 +33,7 @@
 
     --border: 45 20% 80%;
     --input: 45 20% 80%;
-    --ring: 123 70% 30%;
+    --ring: 180 70% 30%;
 
     --radius: 0.75rem;
     
@@ -41,29 +41,29 @@
     --font-display: 'JetBrains Mono', 'Fira Code', 'VT323', monospace;
 
     /* Custom record button colors - flipped */
-    --record-button-light: 123 70% 35%; /* Bright green for light mode, another 5% darker */
-    --record-button-dark: 123 70% 47%; /* Dark green for dark mode, 7% brighter */
+    --record-button-light: 180 70% 35%; /* Bright cyan for light mode, another 5% darker */
+    --record-button-dark: 180 70% 47%; /* Dark cyan for dark mode, 7% brighter */
   }
 
   .dark {
     /* Terminal Hacker Theme - Dark Mode */
     --background: 0 0% 4%; /* #0a0a0a */
-    --foreground: 123 100% 60%; /* #33ff00 */
+    --foreground: 180 100% 60%; /* #00cccc */
 
     --card: 0 0% 4%;
-    --card-foreground: 123 100% 60%;
+    --card-foreground: 180 100% 60%;
 
     --popover: 0 0% 4%;
-    --popover-foreground: 123 100% 60%;
+    --popover-foreground: 180 100% 60%;
 
-    --primary: 123 100% 60%; /* #33ff00 */
+    --primary: 180 100% 60%; /* #00cccc */
     --primary-foreground: 0 0% 4%;
 
     --secondary: 0 0% 8%;
-    --secondary-foreground: 123 100% 60%;
+    --secondary-foreground: 180 100% 60%;
 
-    --muted: 123 100% 15%; /* #1f521f */
-    --muted-foreground: 123 100% 40%;
+    --muted: 180 100% 15%; /* #003333 */
+    --muted-foreground: 180 100% 40%;
 
     --accent: 38 100% 50%; /* #ffb000 */
     --accent-foreground: 0 0% 4%;
@@ -71,9 +71,9 @@
     --destructive: 0 100% 60%; /* #ff3333 */
     --destructive-foreground: 0 0% 4%;
 
-    --border: 123 100% 15%; /* #1f521f */
-    --input: 123 100% 15%;
-    --ring: 123 100% 60%;
+    --border: 180 100% 15%; /* #003333 */
+    --input: 180 100% 15%;
+    --ring: 180 100% 60%;
   }
 }
 
@@ -99,7 +99,7 @@
   }
   
   .dark .timer-text {
-    color: hsl(123 100% 45%); /* 15% less bright than dark mode foreground (60% -> 45%) */
+    color: hsl(180 100% 45%); /* 15% less bright than dark mode foreground (60% -> 45%) */
   }
 }
 
@@ -119,12 +119,12 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     @apply font-bold tracking-tight uppercase;
-    text-shadow: 0 0 5px rgba(51, 255, 0, 0.5);
+    text-shadow: 0 0 5px rgba(0, 204, 204, 0.5);
   }
   button {
     @apply uppercase;
   }
   .text-primary, .text-foreground, [class*="text-primary"] {
-    text-shadow: 0 0 5px rgba(51, 255, 0, 0.5);
+    text-shadow: 0 0 5px rgba(0, 204, 204, 0.5);
   }
 }
