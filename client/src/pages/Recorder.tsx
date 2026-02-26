@@ -24,7 +24,7 @@ export default function Recorder() {
   const [isRecording, setIsRecording] = useState(false);
   const [duration, setDuration] = useState(0);
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [tempFlags, setTempFlags] = useState<{ timestamp: number; description: string; isVoice: boolean }[]>([]);
+  const [tempFlags, setTempFlags] = useState<{ id: string; timestamp: number; description: string; isVoice: boolean }[]>([]);
   const [speechStatus, setSpeechStatus] = useState<'idle' | 'listening' | 'error'>('idle');
   const [userActivated, setUserActivated] = useState(false);
   const [lastRecordingId, setLastRecordingId] = useState<number | null>(null);
@@ -172,9 +172,9 @@ export default function Recorder() {
     setUserActivated(true);
 
     // Start Timer
-    timerRef.current = window.setInterval(() => {
+    timerRef.current = setInterval(() => {
       setDuration(Date.now() - startTimeRef.current);
-    }, 100);
+    }, 100) as NodeJS.Timeout;
 
     // Start Speech Recognition (mobile-compatible)
     try {
@@ -201,7 +201,9 @@ export default function Recorder() {
     isRecordingRef.current = false;
     setUserActivated(false); // Reset user activation
     setSpeechStatus('idle'); // Reset speech status
-    clearInterval(timerRef.current as any);
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
     recognitionRef.current?.stop();
 
     // Create the final blob
@@ -226,8 +228,8 @@ export default function Recorder() {
         createFlag.mutateAsync({
           recordingId: recording.id,
           timestamp: flag.timestamp,
-          color: flag.color,
-          description: "Flagged it",
+          color: flag.isVoice ? "red" : "green",
+          description: flag.description,
         })
       ));
 
@@ -268,10 +270,11 @@ export default function Recorder() {
         timestamp = Math.max(0, timestamp - 1000);
       }
       
-      const newFlag: TempFlag = {
+      const newFlag = {
         id: Math.random().toString(),
         timestamp,
-        color: 'green', // Default color
+        description: source,
+        isVoice,
       };
 
       setTempFlags(current => [...current, newFlag]);
