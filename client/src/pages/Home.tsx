@@ -1,12 +1,12 @@
 import { Link, useLocation } from "wouter";
 import { useMemo, useState } from "react";
-import { useRecordings } from "@/hooks/use-recordings";
-import { useCategories } from "@/hooks/use-categories";
+import { useRecordings } from "@/hooks/use-static-recordings";
+import { useCategories } from "@/hooks/use-static-categories";
 import { Mic, Clock, Tag, ChevronRight, PlayCircle, Settings as SettingsIcon, Download, Trash2, CheckSquare, Square, Moon, Sun } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { useDeleteRecording } from "@/hooks/use-recordings";
+import { useDeleteRecording } from "@/hooks/use-static-recordings";
 import { useToast } from "@/hooks/use-toast";
 import { getAudioBlob, deleteAudioBlob } from "@/lib/indexed-db";
 import JSZip from "jszip";

@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useLocation, Link } from "wouter";
 import { Mic, Square, Flag as FlagIcon, ChevronLeft, ChevronRight, Save, AlertCircle, Settings as SettingsIcon, Moon, Sun } from "lucide-react";
 import { AudioVisualizer } from "@/components/AudioVisualizer";
-import { useCreateRecording } from "@/hooks/use-recordings";
-import { useCreateFlag } from "@/hooks/use-flags";
+import { useCreateRecording } from "@/hooks/use-static-recordings";
+import { useCreateFlag } from "@/hooks/use-static-flags";
 import { saveAudioBlob } from "@/lib/indexed-db";
 import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
@@ -165,7 +165,9 @@ export default function Recorder() {
       const recording = await createRecording.mutateAsync({
         name: `Recording ${new Date().toLocaleString()}`,
         category: "Recordings",
+        categoryId: null,
         duration: finalDuration,
+        notes: "",
       });
 
       // 2. Save Blob to IndexedDB

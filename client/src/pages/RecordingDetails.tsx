@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRoute, useLocation } from "wouter";
-import { useRecording, useDeleteRecording, useUpdateRecording, useCreateRecording } from "@/hooks/use-recordings";
-import { useCreateFlag, useUpdateFlag, useDeleteFlag } from "@/hooks/use-flags";
-import { useCategories, useCreateCategory } from "@/hooks/use-categories";
+import { useRecording, useDeleteRecording, useUpdateRecording, useCreateRecording } from "@/hooks/use-static-recordings";
+import { useCreateFlag, useUpdateFlag, useDeleteFlag } from "@/hooks/use-static-flags";
+import { useCategories, useCreateCategory } from "@/hooks/use-static-categories";
 import { getAudioBlob, saveAudioBlob } from "@/lib/indexed-db";
 import { bufferToWav } from "@/lib/audio-utils";
 import { convertBlobToMp3 } from "@/lib/audio-convert";
@@ -163,8 +163,8 @@ ${notes || 'No notes added'}`;
   };
 
   // Helper function to generate snippet name based on timestamp
-  const generateSnippetName = (timestamp: number) => {
-    const date = new Date(timestamp);
+  const generateSnippetName = (timestamp: number | Date) => {
+    const date = typeof timestamp === 'number' ? new Date(timestamp) : timestamp;
     const dateString = format(date, "dd/MM/yyyy");
     const timeString = format(date, "HH:mm:ss");
     return `Snippet ${dateString}, ${timeString}`;
@@ -219,6 +219,7 @@ ${notes || 'No notes added'}`;
         category: categoryName,
         categoryId: snippetCategoryId,
         duration: Math.round((end - start) * 1000),
+        notes: "",
       });
 
       if (!newRec?.id) {

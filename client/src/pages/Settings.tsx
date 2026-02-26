@@ -1,5 +1,5 @@
-import { useCategories, useCreateCategory, useDeleteCategory } from "@/hooks/use-categories";
-import { useRecordings } from "@/hooks/use-recordings";
+import { useCategories, useCreateCategory, useDeleteCategory } from "@/hooks/use-static-categories";
+import { useRecordings } from "@/hooks/use-static-recordings";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

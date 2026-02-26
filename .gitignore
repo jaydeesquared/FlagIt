@@ -5,3 +5,8 @@ vite.config.ts.*
 *.tar.gz
 .env
 .local/
+server/
+script/
+data/
+shared/
+drizzle.config.ts
