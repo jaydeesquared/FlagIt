@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlagIt - Redirecting...</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, sans-serif;
+        background: #0a0a0a;
+        color: #00cccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .redirect-message {
+        text-align: center;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="redirect-message">
+      <h1>FlagIt</h1>
+      <p>Redirecting to app...</p>
+    </div>
+    <script>
+      // Get the current path and redirect to the SPA
+      const path = window.location.pathname;
+      const search = window.location.search;
+      const hash = window.location.hash;
+      
+      // Preserve the full path including search and hash
+      const fullPath = path + search + hash;
+      
+      // Redirect to the index.html while preserving the route
+      window.location.replace('/FlagIt/' + fullPath.substring(1)); // Remove leading slash
+    </script>
+  </body>
+</html>
