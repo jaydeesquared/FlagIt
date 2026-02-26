@@ -24,17 +24,19 @@ export default function Recorder() {
   const [isRecording, setIsRecording] = useState(false);
   const [duration, setDuration] = useState(0);
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [tempFlags, setTempFlags] = useState<TempFlag[]>([]);
+  const [tempFlags, setTempFlags] = useState<{ timestamp: number; description: string; isVoice: boolean }[]>([]);
+  const [speechStatus, setSpeechStatus] = useState<'idle' | 'listening' | 'error'>('idle');
+  const [userActivated, setUserActivated] = useState(false);
   const [lastRecordingId, setLastRecordingId] = useState<number | null>(null);
   const { theme, toggleTheme } = useTheme();
   
   // Refs
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
-  const startTimeRef = useRef<number>(0);
-  const timerRef = useRef<number>();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const recognitionRef = useRef<any>(null); // SpeechRecognition
   const isRecordingRef = useRef(false);
+  const startTimeRef = useRef<number>(0);
 
   // Mutations
   const createRecording = useCreateRecording();
@@ -53,39 +55,52 @@ export default function Recorder() {
           const recognition = new SpeechRecognition();
           recognition.continuous = true;
           recognition.interimResults = false;
-          recognition.lang = 'en-US';
+          
+          // Auto-detect browser language for mobile compatibility
+          const detectedLang = navigator.language || 'en-US';
+          const supportedLangs = ['en-US', 'en-GB', 'es-ES', 'fr-FR', 'de-DE', 'it-IT', 'pt-BR'];
+          recognition.lang = supportedLangs.includes(detectedLang) ? detectedLang : 'en-US';
           
           recognition.onresult = (event: any) => {
             const last = event.results.length - 1;
             const transcript = event.results[last][0].transcript.toLowerCase().trim();
             console.log("Speech detected:", transcript);
             
-            // Check for trigger phrase
-            if (transcript.includes("flag it") || transcript.includes("flag that") || transcript.includes("flagit")) {
+            // Check for trigger phrase (support multiple languages)
+            const triggers = ['flag it', 'flag that', 'flagit', 'marca', 'marque', 'markieren'];
+            if (triggers.some(trigger => transcript.includes(trigger))) {
               handleAddFlag("Voice Triggered", true);
             }
           };
 
-          // Auto-restart recognition when it ends (browsers stop it periodically)
+          // Add speech status feedback
+          recognition.onstart = () => {
+            setSpeechStatus('listening');
+            console.log("Speech recognition started");
+          };
+          
+          recognition.onerror = (event: any) => {
+            console.log("Speech recognition error:", event.error);
+            setSpeechStatus('error');
+            handleMobileSpeechError(event);
+          };
+          
           recognition.onend = () => {
-            if (isRecordingRef.current) {
+            setSpeechStatus('idle');
+            // Auto-restart recognition when it ends (browsers stop it periodically)
+            if (isRecordingRef.current && userActivated) {
               try {
                 recognition.start();
                 console.log("Speech recognition restarted");
               } catch (e) {
                 console.log("Speech recognition restart failed, retrying...", e);
                 setTimeout(() => {
-                  if (isRecordingRef.current) {
+                  if (isRecordingRef.current && userActivated) {
                     try { recognition.start(); } catch (_) {}
                   }
                 }, 300);
               }
             }
-          };
-
-          recognition.onerror = (event: any) => {
-            console.log("Speech recognition error:", event.error);
-            // 'no-speech' and 'aborted' are non-fatal; onend will restart
           };
           
           recognitionRef.current = recognition;
@@ -106,6 +121,26 @@ export default function Recorder() {
       if (recognitionRef.current) recognitionRef.current.stop();
     };
   }, []);
+
+  // Mobile-specific speech error handler
+  const handleMobileSpeechError = (event: any) => {
+    if (event.error === 'not-allowed') {
+      toast({
+        title: "Microphone Access Required",
+        description: "Please tap the record button to enable voice commands.",
+      });
+    } else if (event.error === 'network') {
+      toast({
+        title: "Network Error",
+        description: "Voice commands require internet connection.",
+      });
+    } else if (event.error === 'no-speech') {
+      // Don't show error for no-speech, it's normal
+      console.log("No speech detected, continuing...");
+    } else {
+      console.log("Speech recognition error:", event.error);
+    }
+  };
 
   // 2. Start Recording
   const startRecording = () => {
@@ -132,17 +167,28 @@ export default function Recorder() {
     startTimeRef.current = Date.now();
     setDuration(0);
     setTempFlags([]);
+    
+    // Set user activation for mobile speech recognition
+    setUserActivated(true);
 
     // Start Timer
     timerRef.current = window.setInterval(() => {
       setDuration(Date.now() - startTimeRef.current);
     }, 100);
 
-    // Start Speech Recognition
+    // Start Speech Recognition (mobile-compatible)
     try {
-      recognitionRef.current?.start();
+      if (recognitionRef.current) {
+        recognitionRef.current.start();
+        console.log("Speech recognition started successfully");
+      }
     } catch (e) {
-      console.log("Speech recognition already started");
+      console.log("Speech recognition start failed:", e);
+      // On mobile, this might fail initially, but will retry onend
+      toast({
+        title: "Voice Commands",
+        description: "Voice commands will activate when you speak.",
+      });
     }
   };
 
@@ -153,7 +199,9 @@ export default function Recorder() {
     mediaRecorderRef.current.stop();
     setIsRecording(false);
     isRecordingRef.current = false;
-    clearInterval(timerRef.current);
+    setUserActivated(false); // Reset user activation
+    setSpeechStatus('idle'); // Reset speech status
+    clearInterval(timerRef.current as any);
     recognitionRef.current?.stop();
 
     // Create the final blob
@@ -311,10 +359,31 @@ export default function Recorder() {
           ))}
         </div>
 
-        {/* Status Text */}
+        {/* Status Display */}
         <div className="text-center">
-          <p className="text-muted-foreground font-medium">
-            {isRecording ? "Listening for 'Flag It'..." : "Press record to start"}
+          <h1 className="text-2xl font-bold text-foreground mb-2">
+            {formatTime(duration)}
+          </h1>
+          <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+            {isRecording ? (
+              <>
+                {speechStatus === 'listening' && (
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                )}
+                {speechStatus === 'error' && (
+                  <div className="w-2 h-2 bg-red-500 rounded-full" />
+                )}
+                {speechStatus === 'idle' && (
+                  <div className="w-2 h-2 bg-gray-400 rounded-full" />
+                )}
+                {speechStatus === 'listening' 
+                  ? "Listening for 'Flag It'..." 
+                  : speechStatus === 'error'
+                  ? "Voice commands unavailable"
+                  : "Voice commands ready"
+                }
+              </>
+            ) : "Press record to start"}
           </p>
         </div>
 
