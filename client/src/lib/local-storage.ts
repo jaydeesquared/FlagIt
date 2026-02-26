@@ -21,16 +21,13 @@ function getInitialData(): StorageData {
     recordings: [],
     flags: [],
     categories: [
-      { id: 1, name: "Recordings", color: "gray" },
-      { id: 2, name: "Personal", color: "blue" },
-      { id: 3, name: "Work", color: "green" },
-      { id: 4, name: "Ideas", color: "purple" }
+      { id: 1, name: "Recordings", color: "gray" }
     ]
   };
 }
 
 function getInitialIds(): NextIds {
-  return { recording: 1, flag: 1, category: 5 }; // Start categories at 5 since we have 4 defaults
+  return { recording: 1, flag: 1, category: 2 }; // Start categories at 2 since we have 1 default
 }
 
 // Get data from localStorage
@@ -207,8 +204,8 @@ export function deleteCategory(id: number): boolean {
   const index = storageData.categories.findIndex(c => c.id === id);
   if (index === -1) return false;
   
-  // Don't allow deletion of default categories (ids 1-4)
-  if (id <= 4) return false;
+  // Don't allow deletion of the default "Recordings" category (id: 1)
+  if (id === 1) return false;
   
   storageData.categories.splice(index, 1);
   
@@ -250,4 +247,11 @@ export function importData(jsonString: string): boolean {
 export function clearAllData(): void {
   localStorage.removeItem(STORAGE_KEY);
   localStorage.removeItem(NEXT_IDS_KEY);
+}
+
+export function resetToCleanState(): void {
+  clearAllData();
+  // Re-initialize with clean data to ensure the "Recordings" category exists
+  getStorageData();
+  getNextIds();
 }
