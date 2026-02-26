@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&family=VT323&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode Theme */
+    --background: 45 15% 92%; /* Warm grey-yellow #d4c4b0 */
+    --foreground: 123 50% 20%; /* #1a5c1a */
+
+    --card: 45 10% 94%; /* Slightly warmer white #eeddcb */
+    --card-foreground: 123 50% 20%;
+
+    --popover: 45 10% 94%; /* Slightly warmer white #eeddcb */
+    --popover-foreground: 123 50% 20%;
+
+    --primary: 123 70% 30%; /* #1a7300 */
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 45 20% 88%; /* Warmer secondary #c0baa8 */
+    --secondary-foreground: 123 50% 20%;
+
+    --muted: 123 30% 85%;
+    --muted-foreground: 123 30% 50%;
+
+    --accent: 38 90% 55%; /* #ffb000 */
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 45 20% 80%;
+    --input: 45 20% 80%;
+    --ring: 123 70% 30%;
+
+    --radius: 0.75rem;
+    
+    --font-sans: 'JetBrains Mono', 'Fira Code', 'VT323', monospace;
+    --font-display: 'JetBrains Mono', 'Fira Code', 'VT323', monospace;
+
+    /* Custom record button colors - flipped */
+    --record-button-light: 123 70% 35%; /* Bright green for light mode, another 5% darker */
+    --record-button-dark: 123 70% 47%; /* Dark green for dark mode, 7% brighter */
+  }
+
+  .dark {
+    /* Terminal Hacker Theme - Dark Mode */
+    --background: 0 0% 4%; /* #0a0a0a */
+    --foreground: 123 100% 60%; /* #33ff00 */
+
+    --card: 0 0% 4%;
+    --card-foreground: 123 100% 60%;
+
+    --popover: 0 0% 4%;
+    --popover-foreground: 123 100% 60%;
+
+    --primary: 123 100% 60%; /* #33ff00 */
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 123 100% 60%;
+
+    --muted: 123 100% 15%; /* #1f521f */
+    --muted-foreground: 123 100% 40%;
+
+    --accent: 38 100% 50%; /* #ffb000 */
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 0 100% 60%; /* #ff3333 */
+    --destructive-foreground: 0 0% 4%;
+
+    --border: 123 100% 15%; /* #1f521f */
+    --input: 123 100% 15%;
+    --ring: 123 100% 60%;
+  }
+}
+
+@layer utilities {
+  .record-button {
+    background-color: hsl(var(--record-button-light));
+  }
+  
+  .record-button:hover {
+    background-color: hsl(var(--record-button-light) / 0.9);
+  }
+  
+  .dark .record-button {
+    background-color: hsl(var(--record-button-dark));
+  }
+  
+  .dark .record-button:hover {
+    background-color: hsl(var(--record-button-dark) / 0.9);
+  }
+
+  .timer-text {
+    color: hsl(var(--foreground));
+  }
+  
+  .dark .timer-text {
+    color: hsl(123 100% 45%); /* 15% less bright than dark mode foreground (60% -> 45%) */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  /* Reserve scrollbar space so opening the flag-edit dialog doesn't change layout width
+     and shift flag positions on the waveform (body gets overflow:hidden when dialog opens). */
+  html {
+    scrollbar-gutter: stable;
+  }
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20;
+    font-family: var(--font-sans);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply font-bold tracking-tight uppercase;
+    text-shadow: 0 0 5px rgba(51, 255, 0, 0.5);
+  }
+  button {
+    @apply uppercase;
+  }
+  .text-primary, .text-foreground, [class*="text-primary"] {
+    text-shadow: 0 0 5px rgba(51, 255, 0, 0.5);
+  }
+}

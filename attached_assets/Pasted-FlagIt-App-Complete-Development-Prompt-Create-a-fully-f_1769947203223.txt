@@ -1,0 +1,90 @@
+FlagIt App - Complete Development Prompt
+Create a fully functional audio recording web application called FlagIt with the following specifications:
+Core Features
+1. Recording Interface
+
+Minimal, clean design with prominent Record button
+Real-time waveform visualization during recording
+Dual flag triggering system:
+
+Voice activation: Detect the phrase "Flag It" during recording and automatically place a flag at that timestamp
+Manual button: Flag button positioned next to Record button for manual flag placement
+
+
+Display flags as markers on the waveform in real-time as they're created
+
+2. Recording Management
+
+Saved recordings library showing all past recordings
+Each recording displays:
+
+Editable name field
+Editable category field
+Full waveform visualization with all flags visible
+
+
+Flag customization for each marker:
+
+Color selection (Green, Red, Blue, Purple, Yellow, Orange)
+Text description field
+
+
+
+3. Audio Snippet Editor
+
+Click any flag to open a mini audio editor modal/panel
+Editor displays:
+
+Focused waveform view centered on the selected flag
+In-point slider (left side of flag) - adjustable start time
+Out-point slider (right side of flag) - adjustable end time
+Visual indicators showing the selected segment
+Playback controls for the segment preview
+Save button to export the segment as a new, separate audio file
+
+
+
+Technical Requirements
+Audio Processing
+
+Use Web Audio API for recording and playback
+Implement voice recognition (Web Speech API or similar) for "Flag It" detection
+Generate accurate waveform visualizations using audio buffer data
+Support common audio formats (MP3, WAV)
+Ensure precise timestamp accuracy for flags
+
+Data Persistence
+
+Store recordings locally (IndexedDB or localStorage)
+Save flag metadata (timestamps, colors, descriptions)
+Maintain edited names and categories
+Store exported audio snippets
+
+UI/UX Design
+
+Modern, minimal interface aesthetic
+Responsive design for mobile and desktop
+Smooth animations for waveform and interactions
+Clear visual feedback for all actions
+Intuitive color picker for flags
+Accessible controls
+
+Functionality
+
+Real-time audio level monitoring
+Pause/Resume recording capability
+Playback controls for full recordings
+Delete recordings option
+Export functionality for both full recordings and snippets
+Error handling for microphone permissions
+
+Deliverables
+Create a single-page application with:
+
+Clean HTML structure
+Styled CSS (use Tailwind or custom styling)
+Vanilla JavaScript or React for interactivity
+All features fully functional and integrated
+Responsive design that works across devices
+
+Make the app production-ready with professional design, smooth performance, and intuitive user experience.

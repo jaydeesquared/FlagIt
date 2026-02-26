@@ -1,0 +1,170 @@
+{
+  "categories": [
+    {
+      "id": 4,
+      "color": "gray",
+      "name": "New category"
+    }
+  ],
+  "recordings": [
+    {
+      "id": 3,
+      "name": "Recording 18/02/2026, 19:20:06",
+      "category": "Uncategorized",
+      "categoryId": null,
+      "duration": 20612,
+      "notes": "",
+      "createdAt": "2026-02-18T19:20:06.686Z"
+    },
+    {
+      "id": 4,
+      "name": "Recording 18/02/2026, 19:26:20",
+      "category": "Uncategorized",
+      "categoryId": null,
+      "duration": 38604,
+      "notes": "",
+      "createdAt": "2026-02-18T19:26:20.426Z"
+    },
+    {
+      "id": 5,
+      "name": "Recording 18/02/2026, 19:26:20 (Snippet)",
+      "category": "New category",
+      "categoryId": 4,
+      "duration": 6742,
+      "notes": "",
+      "createdAt": "2026-02-18T19:26:38.806Z"
+    },
+    {
+      "id": 6,
+      "name": "Recording 18/02/2026, 19:29:34",
+      "category": "Uncategorized",
+      "categoryId": null,
+      "duration": 23508,
+      "notes": "",
+      "createdAt": "2026-02-18T19:29:34.347Z"
+    },
+    {
+      "id": 7,
+      "name": "Recording 18/02/2026, 19:35:46",
+      "category": "Uncategorized",
+      "categoryId": null,
+      "duration": 22908,
+      "notes": "",
+      "createdAt": "2026-02-18T19:35:47.008Z"
+    }
+  ],
+  "flags": [
+    {
+      "id": 4,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 4,
+      "timestamp": 1742
+    },
+    {
+      "id": 5,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 4,
+      "timestamp": 5609
+    },
+    {
+      "id": 6,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 4,
+      "timestamp": 8795
+    },
+    {
+      "id": 7,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 4,
+      "timestamp": 17765
+    },
+    {
+      "id": 8,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 4,
+      "timestamp": 37275
+    },
+    {
+      "id": 9,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 6,
+      "timestamp": 3619
+    },
+    {
+      "id": 10,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 6,
+      "timestamp": 6727
+    },
+    {
+      "id": 11,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 6,
+      "timestamp": 12542
+    },
+    {
+      "id": 12,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 6,
+      "timestamp": 17362
+    },
+    {
+      "id": 13,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 6,
+      "timestamp": 22029
+    },
+    {
+      "id": 14,
+      "color": "green",
+      "description": "Manually flagged",
+      "recordingId": 7,
+      "timestamp": 2738
+    },
+    {
+      "id": 15,
+      "color": "purple",
+      "description": "Manually flagged",
+      "recordingId": 7,
+      "timestamp": 5263
+    },
+    {
+      "id": 16,
+      "color": "red",
+      "description": "Manually flagged",
+      "recordingId": 7,
+      "timestamp": 7458
+    },
+    {
+      "id": 17,
+      "color": "blue",
+      "description": "Manually flagged",
+      "recordingId": 7,
+      "timestamp": 11682
+    },
+    {
+      "id": 18,
+      "color": "orange",
+      "description": "Manually flagged",
+      "recordingId": 7,
+      "timestamp": 15131
+    },
+    {
+      "id": 19,
+      "color": "blue",
+      "description": "Manually flagged",
+      "recordingId": 7,
+      "timestamp": 21893
+    }
+  ]
+}
