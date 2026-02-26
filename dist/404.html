@@ -37,11 +37,17 @@
       const search = window.location.search;
       const hash = window.location.hash;
       
-      // Preserve the full path including search and hash
-      const fullPath = path + search + hash;
+      // Extract the path after /FlagIt/ and handle empty paths
+      const flagItIndex = path.lastIndexOf('/FlagIt/');
+      const pathAfterFlagIt = flagItIndex !== -1 ? path.substring(flagItIndex + 8) : '';
+      const cleanPath = pathAfterFlagIt || '';
+      
+      // Construct the full URL without double slashes
+      const fullPath = cleanPath + search + hash;
+      const redirectUrl = fullPath ? '/FlagIt/' + fullPath : '/FlagIt/';
       
       // Redirect to the index.html while preserving the route
-      window.location.replace('/FlagIt/' + fullPath.substring(1)); // Remove leading slash
+      window.location.replace(redirectUrl);
     </script>
   </body>
 </html>

@@ -37,9 +37,9 @@ import {
 } from "@/components/ui/select";
 
 export default function RecordingDetails() {
-  const [_, params] = useRoute("/recordings/:id");
+  const [match, params] = useRoute("/recordings/:id");
   const [, setLocation] = useLocation();
-  const id = Number(params?.id);
+  const id = match && params ? Number(params.id) : 0;
   const { toast } = useToast();
   
   // Data Fetching
@@ -234,7 +234,7 @@ ${notes || 'No notes added'}`;
         action: (
           <button
             onClick={() => {
-              window.location.href = `/recordings/${newRec.id}`;
+              setLocation(`/recordings/${newRec.id}`);
             }}
             className="px-3 py-1.5 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
           >
