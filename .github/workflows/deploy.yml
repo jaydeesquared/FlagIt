@@ -6,6 +6,16 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Ensure only one deployment runs at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,6 +41,13 @@ jobs:
 
     - name: Build client
       run: npm run build
+
+    - name: Debug build output
+      run: |
+        echo "Build directory contents:"
+        ls -la dist/
+        echo "Checking index.html exists:"
+        test -f dist/index.html && echo "✅ index.html found" || echo "❌ index.html missing"
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
