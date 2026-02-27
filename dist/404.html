@@ -37,14 +37,23 @@
       const search = window.location.search;
       const hash = window.location.hash;
       
-      // Extract the path after /FlagIt/ and handle empty paths
-      const flagItIndex = path.lastIndexOf('/FlagIt/');
-      const pathAfterFlagIt = flagItIndex !== -1 ? path.substring(flagItIndex + 8) : '';
-      const cleanPath = pathAfterFlagIt || '';
+      // Extract the path after /FlagIt/
+      const flagItIndex = path.indexOf('/FlagIt/');
+      let pathAfterFlagIt = '';
       
-      // Construct the full URL without double slashes
-      const fullPath = cleanPath + search + hash;
-      const redirectUrl = fullPath ? '/FlagIt/' + fullPath : '/FlagIt/';
+      if (flagItIndex !== -1) {
+        pathAfterFlagIt = path.substring(flagItIndex + 8);
+      }
+      
+      // Ensure no leading slash to prevent double slashes
+      const cleanPath = pathAfterFlagIt.startsWith('/') 
+        ? pathAfterFlagIt.substring(1) 
+        : pathAfterFlagIt;
+      
+      // Construct clean URL without double slashes
+      const redirectUrl = cleanPath 
+        ? '/FlagIt/' + cleanPath + search + hash
+        : '/FlagIt/' + search + hash;
       
       // Redirect to the index.html while preserving the route
       window.location.replace(redirectUrl);

@@ -423,7 +423,7 @@ export default function Recorder() {
           {/* Go to Recording Button (or spacer) */}
           {lastRecordingId ? (
             <button
-              onClick={() => setLocation(`recordings/${lastRecordingId}`)}
+              onClick={() => setLocation(`/recordings/${lastRecordingId}`)}
               className="group w-16 flex flex-col items-center gap-2 transition-all"
             >
               <div className="w-16 h-16 rounded-2xl bg-card border border-border flex items-center justify-center shadow-lg group-hover:border-primary/50 group-active:scale-95 transition-all">

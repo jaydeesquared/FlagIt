@@ -137,7 +137,7 @@ ${notes || 'No notes added'}`;
   const handleDelete = async () => {
     if (confirm("Are you sure you want to delete this recording? This cannot be undone.")) {
       await deleteRecording.mutateAsync(id);
-      setLocation("");
+      setLocation("/");
     }
   };
 
@@ -234,7 +234,7 @@ ${notes || 'No notes added'}`;
         action: (
           <button
             onClick={() => {
-              setLocation(`recordings/${newRec.id}`);
+              setLocation(`/recordings/${newRec.id}`);
             }}
             className="px-3 py-1.5 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors"
           >
@@ -307,7 +307,7 @@ ${notes || 'No notes added'}`;
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
             <button 
-              onClick={() => setLocation("recordings")}
+              onClick={() => setLocation("/recordings")}
               className="p-2 hover:bg-card rounded-full transition-colors text-muted-foreground hover:text-foreground flex-shrink-0"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -355,7 +355,7 @@ ${notes || 'No notes added'}`;
             <Button variant="ghost" size="icon" onClick={toggleTheme}>
               {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </Button>
-            <Button variant="ghost" size="icon" onClick={() => setLocation("settings")}>
+            <Button variant="ghost" size="icon" onClick={() => setLocation("/settings")}>
               <SettingsIcon className="w-4 h-4" />
             </Button>
             <Button variant="ghost" size="icon" onClick={() => { setEditName(recording.name); setIsEditing(true); }}>

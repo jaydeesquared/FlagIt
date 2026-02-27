@@ -12,10 +12,10 @@ import Settings from "@/pages/Settings";
 function AppRoutes() {
   return (
     <Switch>
-      <Route path="" component={Recorder} />
-      <Route path="recordings" component={Home} />
-      <Route path="recordings/:id" component={RecordingDetails} />
-      <Route path="settings" component={Settings} />
+      <Route path="/" component={Recorder} />
+      <Route path="/recordings" component={Home} />
+      <Route path="/recordings/:id" component={RecordingDetails} />
+      <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -58,7 +58,7 @@ export default function Settings() {
           <Button 
             variant="ghost" 
             size="icon" 
-            onClick={() => setLocation("")}
+            onClick={() => setLocation("/")}
             className="rounded-full"
           >
             <ArrowLeft className="w-5 h-5" />
