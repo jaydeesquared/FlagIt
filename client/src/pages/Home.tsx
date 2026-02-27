@@ -530,9 +530,9 @@ function RecordingCard({
       className="group relative bg-card hover:bg-card/80 border border-border hover:border-primary/50 rounded-xl p-3 sm:p-5 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-0.5"
       role="button"
       tabIndex={0}
-      onClick={() => setLocation(`/recordings/${recording.id}`)}
+      onClick={() => setLocation(`recordings/${recording.id}`)}
       onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") setLocation(`/recordings/${recording.id}`);
+        if (e.key === "Enter" || e.key === " ") setLocation(`recordings/${recording.id}`);
       }}
     >
       <div className="flex items-start justify-between gap-2 sm:gap-4">
