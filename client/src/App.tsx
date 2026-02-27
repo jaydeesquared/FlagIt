@@ -22,7 +22,7 @@ function AppRoutes() {
 }
 
 function App() {
-  const basePath = import.meta.env.PROD ? "/FlagIt" : "/";
+  const basePath = import.meta.env.PROD ? "/FlagIt/" : "/";
   
   return (
     <QueryClientProvider client={queryClient}>
